@@ -1,6 +1,7 @@
 package com.politrons.app;
 
 import com.politrons.service.HelloService;
+import io.vavr.concurrent.Future;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServer;
@@ -11,7 +12,7 @@ import static io.vavr.API.*;
 import static io.vavr.Patterns.$Failure;
 import static io.vavr.Patterns.$Success;
 
-public class VerticleApp extends AbstractVerticle {
+public class StarWarsMoviesApp extends AbstractVerticle {
 
     @Override
     public void start(Promise<Void> startPromise) {
@@ -22,7 +23,7 @@ public class VerticleApp extends AbstractVerticle {
 
         Router router = Router.router(vertx);
 
-        router.get("/get/resource")
+        router.get("/movie")
                 .respond(ctx -> {
                     var promise = Promise.<JsonObject>promise();
                     service.getReactiveHello()
@@ -33,7 +34,9 @@ public class VerticleApp extends AbstractVerticle {
                                 promise.complete(jsonObj);
                             });
                     return promise.future();
-                });
+                }).failureHandler(ctx ->
+                        Future.successful(new JsonObject().put("Error",
+                                String.format("Server error. Caused by %s", ctx.failure().getMessage()))));
 
 
         server.requestHandler(router).

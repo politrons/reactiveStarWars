@@ -1,1 +1,3 @@
-rootProject.name = "starter"
+rootProject.name = "reactiveStarWars"
+include("starWarsMovies")
+include("StarWarsActors")

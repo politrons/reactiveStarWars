@@ -17,7 +17,7 @@ repositories {
 val vertxVersion = "4.1.2"
 val junitJupiterVersion = "5.7.0"
 
-val mainVerticleName = "com.politrons.app.VerticleApp"
+val mainVerticleName = "com.politrons.app.StarWarsMoviesApp"
 val launcherClassName = "io.vertx.core.Launcher"
 
 val watchForChange = "src/**/*"

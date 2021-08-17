@@ -1,6 +1,6 @@
 package com.politrons.app;
 
-import com.politrons.service.HelloService;
+import com.politrons.service.StarWarsService;
 import io.vavr.concurrent.Future;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
@@ -17,7 +17,7 @@ public class StarWarsMoviesApp extends AbstractVerticle {
     @Override
     public void start(Promise<Void> startPromise) {
 
-        var service = new HelloService();
+        var service = new StarWarsService(vertx);
 
         HttpServer server = vertx.createHttpServer();
 
@@ -26,7 +26,7 @@ public class StarWarsMoviesApp extends AbstractVerticle {
         router.get("/movie")
                 .respond(ctx -> {
                     var promise = Promise.<JsonObject>promise();
-                    service.getReactiveHello()
+                    service.getMovieInfo("Episode 1")
                             .onComplete(tryResult -> {
                                 JsonObject jsonObj = Match(tryResult).of(
                                         Case($Success($()), value -> new JsonObject().put("message", value)),

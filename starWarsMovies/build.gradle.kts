@@ -33,6 +33,7 @@ dependencies {
     implementation("io.vavr:vavr:0.10.4")
     implementation("io.vavr:vavr-match:0.10.4")
     implementation("org.projectlombok:lombok:1.18.20")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.11.4")
     testImplementation("io.vertx:vertx-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }

@@ -16,17 +16,15 @@ public class StarWarsMoviesApp extends AbstractVerticle {
 
     @Override
     public void start(Promise<Void> startPromise) {
-
+        println("Running StarWarsMovies server....");
         var service = new StarWarsService(vertx);
+        var server = vertx.createHttpServer();
+        var router = Router.router(vertx);
 
-        HttpServer server = vertx.createHttpServer();
-
-        Router router = Router.router(vertx);
-
-        router.get("/movie")
+        router.get("/movie/:episode")
                 .respond(ctx -> {
                     var promise = Promise.<JsonObject>promise();
-                    service.getMovieInfo("Episode 1")
+                    service.getMovieInfo(ctx.pathParam("episode"))
                             .onComplete(tryResult -> {
                                 JsonObject jsonObj = Match(tryResult).of(
                                         Case($Success($()), value -> new JsonObject().put("message", value)),
@@ -38,12 +36,11 @@ public class StarWarsMoviesApp extends AbstractVerticle {
                         Future.successful(new JsonObject().put("Error",
                                 String.format("Server error. Caused by %s", ctx.failure().getMessage()))));
 
-
         server.requestHandler(router).
                 listen(8888, http -> {
                     if (http.succeeded()) {
                         startPromise.complete();
-                        System.out.println("HTTP server started on port 8888");
+                        println("StarWarsMovies server started on port 8888");
                     } else {
                         startPromise.fail(http.cause());
                     }

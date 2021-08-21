@@ -13,6 +13,11 @@ public class CastingService {
             "episode3", "Anakin, Owi-wan, Palpatine");
 
     public Future<String> getCastingForEpisode(String episode) {
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return Future.of(() -> actors.getOrDefault(episode, "No info"));
     }
 }

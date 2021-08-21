@@ -17,6 +17,6 @@ public class ReactiveStarWarsIT {
         vertx.deployVerticle(new StarWarsActorsApp());
         Thread.sleep(2000);
         vertx.deployVerticle(new StarWarsMoviesApp());
-//        Thread.sleep(6000000);
+        Thread.sleep(6000000);
     }
 }

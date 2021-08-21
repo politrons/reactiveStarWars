@@ -30,6 +30,8 @@ application {
 dependencies {
     implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
     implementation("io.vertx:vertx-web")
+    implementation("io.vertx:vertx-rx-java3")
+    implementation("io.vertx:vertx-reactive-streams")
     implementation("io.vavr:vavr:0.10.4")
     implementation("io.vavr:vavr-match:0.10.4")
     implementation("org.projectlombok:lombok:1.18.20")

@@ -1,6 +1,7 @@
 package com.politrons.app;
 
 import com.politrons.service.StarWarsService;
+import io.vavr.Tuple2;
 import io.vavr.concurrent.Future;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
@@ -34,7 +35,7 @@ public class StarWarsMoviesApp extends AbstractVerticle {
                     service.getMovieInfo(ctx.pathParam("episode"))
                             .onComplete(tryResult -> {
                                 JsonObject jsonObj = Match(tryResult).of(
-                                        Case($Success($()), value -> new JsonObject().put("message", value)),
+                                        Case($Success($()), this::createJsonResponse),
                                         Case($Failure($()), x -> new JsonObject().put("Error", x.getMessage())));
                                 promise.complete(jsonObj);
                             });
@@ -52,5 +53,12 @@ public class StarWarsMoviesApp extends AbstractVerticle {
                         startPromise.fail(http.cause());
                     }
                 });
+    }
+
+    private JsonObject createJsonResponse(Tuple2<String, String> tuple) {
+        JsonObject entries = new JsonObject();
+        entries.put("characters", tuple._2);
+        entries.put("planets", tuple._1);
+        return entries;
     }
 }

@@ -2,6 +2,8 @@ package com.politrons.infra;
 
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
+import io.vavr.concurrent.Future;
+import io.vavr.concurrent.Promise;
 import io.vertx.core.Vertx;
 import io.vertx.grpc.VertxChannelBuilder;
 import planets.PlanetRequest;
@@ -26,16 +28,19 @@ public class PlanetsConnector {
         this.vertx = vertx;
     }
 
-    public void makeGrpcRequest() {
-
-        ManagedChannel channel = VertxChannelBuilder
+    public Future<String> makeGrpcRequest(String episode) {
+        var promise = Promise.<String>make();
+        var channel = VertxChannelBuilder
                 .forAddress(vertx, "localhost", 8810)
                 .usePlaintext()
                 .build();
 
         StarWarsPlanetServiceGrpc.StarWarsPlanetServiceStub stub = StarWarsPlanetServiceGrpc.newStub(channel);
 
-        PlanetRequest request = PlanetRequest.newBuilder().setEpisode("Episode1").build();
+        PlanetRequest request = PlanetRequest
+                .newBuilder()
+                .setEpisode(episode)
+                .build();
 
         stub.getPlanets(request, new StreamObserver<>() {
             private PlanetResponse response;
@@ -43,6 +48,7 @@ public class PlanetsConnector {
             @Override
             public void onNext(PlanetResponse response) {
                 this.response = response;
+                promise.success(response.getPlanets());
             }
 
             @Override
@@ -55,7 +61,7 @@ public class PlanetsConnector {
                 System.out.println("Got the server response: " + response.getPlanets());
             }
         });
-
+        return promise.future();
 
     }
 

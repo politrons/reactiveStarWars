@@ -1,22 +1,22 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "examples";
-option java_outer_classname = "HelloWorldProto";
-package helloworld;
+option java_package = "planets";
+option java_outer_classname = "StarWarsPlanetsProto";
+package com.politrons.proto;
 
 // The greeting service definition.
-service Greeter {
+service StarWarsPlanetService {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc GetPlanets (PlanetRequest) returns (PlanetResponse) {}
 }
 
 // The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message PlanetRequest {
+  string episode = 1;
 }
 
 // The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message PlanetResponse {
+  string planets = 1;
 }

@@ -1,12 +1,12 @@
 package com.politrons.infra;
 
-import examples.GreeterGrpc;
-import examples.HelloReply;
-import examples.HelloRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import io.vertx.core.Vertx;
 import io.vertx.grpc.VertxChannelBuilder;
+import planets.PlanetRequest;
+import planets.PlanetResponse;
+import planets.StarWarsPlanetServiceGrpc;
 
 public class PlanetsConnector {
 
@@ -25,17 +25,17 @@ public class PlanetsConnector {
                 .build();
 
         // Get a stub to use for interacting with the remote service
-        GreeterGrpc.GreeterStub stub = GreeterGrpc.newStub(channel);
+        StarWarsPlanetServiceGrpc.StarWarsPlanetServiceStub stub = StarWarsPlanetServiceGrpc.newStub(channel);
 
-        HelloRequest request = HelloRequest.newBuilder().setName("Julien").build();
+        PlanetRequest request = PlanetRequest.newBuilder().setEpisode("Episode1").build();
 
         // Call the remote service
-        stub.sayHello(request, new StreamObserver<>() {
-            private HelloReply helloReply;
+        stub.getPlanets(request, new StreamObserver<>() {
+            private PlanetResponse response;
 
             @Override
-            public void onNext(HelloReply helloReply) {
-                this.helloReply = helloReply;
+            public void onNext(PlanetResponse response) {
+                this.response = response;
             }
 
             @Override
@@ -45,7 +45,7 @@ public class PlanetsConnector {
 
             @Override
             public void onCompleted() {
-                System.out.println("Got the server response: " + helloReply.getMessage());
+                System.out.println("Got the server response: " + response.getPlanets());
             }
         });
 

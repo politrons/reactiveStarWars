@@ -1,24 +1,24 @@
 package com.politrons.app;
 
-import examples.GreeterGrpc;
-import examples.HelloReply;
-import examples.HelloRequest;
 import io.grpc.stub.StreamObserver;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
+import planets.PlanetRequest;
+import planets.PlanetResponse;
+import planets.StarWarsPlanetServiceGrpc;
 
 public class StarWarsPlanetsApp extends AbstractVerticle {
 
-    GreeterGrpc.GreeterImplBase service = new GreeterGrpc.GreeterImplBase() {
+    StarWarsPlanetServiceGrpc.StarWarsPlanetServiceImplBase service = new StarWarsPlanetServiceGrpc.StarWarsPlanetServiceImplBase() {
         @Override
-        public void sayHello(HelloRequest request,
-                             StreamObserver<HelloReply> responseObserver) {
+        public void getPlanets(PlanetRequest request,
+                               StreamObserver<PlanetResponse> responseObserver) {
 
             responseObserver.onNext(
-                    HelloReply.newBuilder()
-                            .setMessage(request.getName())
+                    PlanetResponse.newBuilder()
+                            .setPlanets(request.getEpisode())
                             .build());
             responseObserver.onCompleted();
         }

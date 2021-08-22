@@ -1,3 +1,4 @@
 rootProject.name = "TestFramework"
 include 'starWarsMovies'
 include 'StarWarsActors'
+include 'StarWarsPlanets'

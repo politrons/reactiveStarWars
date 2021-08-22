@@ -12,6 +12,13 @@ import static io.vavr.API.*;
 import static io.vavr.Patterns.$Failure;
 import static io.vavr.Patterns.$Success;
 
+/**
+ * Verticle responsible to receive request from client to obtain information
+ * of one specific episode.
+ * The verticle invoke two other services in the platform in a reactive way:
+ * * StarWarsActor: Request using WebSocket which we have already open and we use using Concurrency Channel pattern.
+ * *
+ */
 public class StarWarsMoviesApp extends AbstractVerticle {
 
     @Override

@@ -1,6 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 
+
 plugins {
     java
     application
@@ -28,7 +29,9 @@ application {
 }
 
 dependencies {
+    implementation(project(":StarWarsPlanets"))
     implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
+    implementation("io.vertx:vertx-grpc:4.1.2")
     implementation("io.vertx:vertx-web")
     implementation("io.vertx:vertx-rx-java3")
     implementation("io.vertx:vertx-reactive-streams")

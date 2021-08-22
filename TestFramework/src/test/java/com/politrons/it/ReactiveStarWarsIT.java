@@ -2,6 +2,7 @@ package com.politrons.it;
 
 import com.politrons.app.StarWarsActorsApp;
 import com.politrons.app.StarWarsMoviesApp;
+import com.politrons.app.StarWarsPlanetsApp;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxExtension;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,8 @@ public class ReactiveStarWarsIT {
         vertx.deployVerticle(new StarWarsActorsApp());
         Thread.sleep(2000);
         vertx.deployVerticle(new StarWarsMoviesApp());
+        Thread.sleep(2000);
+        vertx.deployVerticle(new StarWarsPlanetsApp());
         Thread.sleep(6000000);
     }
 }

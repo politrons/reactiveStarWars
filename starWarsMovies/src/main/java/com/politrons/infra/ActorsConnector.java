@@ -18,15 +18,17 @@ import java.util.concurrent.TimeUnit;
 import static io.vavr.API.println;
 
 /**
+ * WebSocket connector: Using Vertx WebSocket, we keep an open communication between the service and
+ * the StarWarsActor service.
  * Connector responsible to obtain the actors of one particular movie.
  */
-public class ConnectorActors {
+public class ActorsConnector {
 
     private final Vertx vertx;
     private final PublishProcessor<String> channelRequest = PublishProcessor.create();
     private final PublishProcessor<String> channelResponse = PublishProcessor.create();
 
-    public ConnectorActors(Vertx vertx) {
+    public ActorsConnector(Vertx vertx) {
         this.vertx = vertx;
         actorsStream();
     }

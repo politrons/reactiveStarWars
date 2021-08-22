@@ -1,14 +1,10 @@
 package com.politrons.app;
 
-import com.politrons.service.CastingService;
-import io.vavr.Function1;
+import com.politrons.service.charactersService;
 import io.vavr.concurrent.Future;
-import io.vavr.control.Option;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServer;
-
-import java.io.Serializable;
 
 import static io.vavr.API.*;
 import static io.vavr.Patterns.$None;
@@ -19,7 +15,7 @@ public class StarWarsActorsApp extends AbstractVerticle {
     @Override
     public void start(Promise<Void> startPromise) {
         println("Running StarWarsActors server....");
-        var service = new CastingService();
+        var service = new charactersService();
         HttpServer server = vertx.createHttpServer();
         server.webSocketHandler(ctx ->
                         ctx.textMessageHandler((episode) -> {

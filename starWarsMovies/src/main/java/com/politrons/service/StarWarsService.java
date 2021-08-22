@@ -16,7 +16,7 @@ public class StarWarsService {
     }
 
     public Future<String> getMovieInfo(String episode) {
-        planetsConnector.makeRequest();
+        planetsConnector.makeGrpcRequest();
         return actorsConnector.connect(episode)
                 .map(String::toUpperCase)
                 .onFailure(t -> System.out.println("Error obtaining actors from service. Caused by " + t.getMessage()));

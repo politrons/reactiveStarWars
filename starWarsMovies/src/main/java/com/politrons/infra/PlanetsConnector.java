@@ -8,6 +8,15 @@ import planets.PlanetRequest;
 import planets.PlanetResponse;
 import planets.StarWarsPlanetServiceGrpc;
 
+/**
+ * gRPC connector to connect to StarWarsPlanet.
+ * In order to establish a gRPC communication we do:
+ * * We create a [ManagedChannel] using patter builder with Vertx Factory [VertxChannelBuilder]
+ * * Get a stub [StarWarsPlanetServiceStub] to use for interacting with the remote service.
+ * * Using the Stub invoke the function described in contract [getPlanets] passing the request message
+ * defined [PlanetRequest]
+ * * Then we define the Stream with the callbacks the server will invoke once response.
+ */
 public class PlanetsConnector {
 
 
@@ -17,19 +26,17 @@ public class PlanetsConnector {
         this.vertx = vertx;
     }
 
-    public void makeRequest() {
+    public void makeGrpcRequest() {
 
         ManagedChannel channel = VertxChannelBuilder
                 .forAddress(vertx, "localhost", 8810)
                 .usePlaintext()
                 .build();
 
-        // Get a stub to use for interacting with the remote service
         StarWarsPlanetServiceGrpc.StarWarsPlanetServiceStub stub = StarWarsPlanetServiceGrpc.newStub(channel);
 
         PlanetRequest request = PlanetRequest.newBuilder().setEpisode("Episode1").build();
 
-        // Call the remote service
         stub.getPlanets(request, new StreamObserver<>() {
             private PlanetResponse response;
 
@@ -40,7 +47,7 @@ public class PlanetsConnector {
 
             @Override
             public void onError(Throwable throwable) {
-                System.out.println("Coult not reach server " + throwable.getMessage());
+                System.out.println("Could not reach server " + throwable.getMessage());
             }
 
             @Override

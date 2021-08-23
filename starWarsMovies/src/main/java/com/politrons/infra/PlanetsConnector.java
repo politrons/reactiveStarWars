@@ -1,6 +1,5 @@
 package com.politrons.infra;
 
-import io.grpc.ManagedChannel;
 import io.grpc.stub.StreamObserver;
 import io.vavr.concurrent.Future;
 import io.vavr.concurrent.Promise;

@@ -58,7 +58,7 @@ public class PlanetsConnector {
 
             @Override
             public void onCompleted() {
-                System.out.println("Got the server response: " + response.getPlanets());
+                System.out.println("[gRPC] Server response: " + response.getPlanets());
             }
         });
         return promise.future();

@@ -5,7 +5,6 @@ import io.vavr.Tuple2;
 import io.vavr.concurrent.Future;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
-import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 
@@ -17,8 +16,8 @@ import static io.vavr.Patterns.$Success;
  * Verticle responsible to receive request from client to obtain information
  * of one specific episode.
  * The verticle invoke two other services in the platform in a reactive way:
- * * StarWarsActor: Request using WebSocket which we have already open and we use using Concurrency Channel pattern.
- * *
+ * * StarWarsActor: Request using [WebSocket] which we have already open and we use using Concurrency Channel pattern.
+ * * StarWarsPlanets: Request using [gRPC] which keep an open [StreamObserver] between services. We usr Google Proto
  */
 public class StarWarsMoviesApp extends AbstractVerticle {
 

@@ -38,7 +38,7 @@ public class ActorsConnector {
         Disposable subscribe = channelResponse.subscribe(actors -> Try.of(() -> promiseResponse.success(actors)));
         println(subscribe.isDisposed());
         boolean send = channelRequest.offer(episode);
-        println("Request send successfull:" + send);
+        println("Request send successful:" + send);
         return promiseResponse.future();
     }
 
@@ -59,7 +59,7 @@ public class ActorsConnector {
                             t -> println("Error in communication between servers"));
             println("Actor Stream ready:" + subscribe.isDisposed());
             ws.textMessageHandler((response) -> {
-                println("Server response:" + response);
+                println("[WebSocket] Server response:" + response);
                 var responseStatus = channelResponse.offer(response);
                 if (!responseStatus) println("Error sending actors info to the client");
             }).exceptionHandler((e) -> {

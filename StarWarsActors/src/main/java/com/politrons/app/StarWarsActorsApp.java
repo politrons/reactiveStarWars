@@ -10,6 +10,9 @@ import static io.vavr.API.*;
 import static io.vavr.Patterns.$None;
 import static io.vavr.Patterns.$Some;
 
+/**
+ * Vertx Verticle for transport layer, which implement a webSocket server using [webSocketHandler]
+ */
 public class StarWarsActorsApp extends AbstractVerticle {
 
     @Override

@@ -5,6 +5,8 @@ A Star wars reactive microservice platform, formed by three services:
 * **StarWarsActors:** WebSocket microservice. It contains the information of characters per episode.
 * **StarWarsPlanets:** gRPC microservice. It contains the information of planets per episode.
 
+    ![My image](img/starWars.png)
+
 In this platform, we apply different reactive technologies not only to communicate between microservice,
 but also to be NIO and control side-effect.
 

@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+def versions = [
+        AkkaVersion: "2.6.15",
+        JacksonVersion: "2.11.4",
+        ScalaBinary: "2.13"
+]
+
+dependencies {
+    implementation "io.vavr:vavr:0.10.4"
+    implementation "com.typesafe.akka:akka-stream-kafka_${versions.ScalaBinary}:2.1.1"
+    implementation "com.typesafe.akka:akka-stream_${versions.ScalaBinary}:${versions.AkkaVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${versions.JacksonVersion}"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

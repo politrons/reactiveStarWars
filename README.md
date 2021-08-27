@@ -35,6 +35,12 @@ To run your application:
 ./gradlew clean run
 ```
 
+To run kafka
+
+````
+docker-compose up -d
+````
+
 ### Running
 
 To run the three microservice you can use the main class of the ```TestFramework``` module 

@@ -1,6 +1,5 @@
 package com.politrons.app;
 
-import akka.Done;
 import akka.actor.ActorSystem;
 import akka.kafka.ConsumerSettings;
 import akka.kafka.ProducerSettings;
@@ -9,18 +8,16 @@ import akka.kafka.javadsl.Consumer;
 import akka.kafka.javadsl.Producer;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
-import com.typesafe.config.Config;
-import io.vavr.API;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+
+import static io.vavr.API.println;
 
 
 public class StarWarsShipsApp {
@@ -41,8 +38,9 @@ public class StarWarsShipsApp {
                 .mapAsync(
                         1,
                         msg -> {
-                            API.println("Message from Kafka:" + msg.record());
-                            return CompletableFuture.completedFuture(msg.record().value())
+                            String message = new String(msg.record().value());
+                            println("Message from Kafka:" + message);
+                            return CompletableFuture.completedFuture(message)
                                     .thenApply(done -> msg.committableOffset());
                         }
 
@@ -53,18 +51,17 @@ public class StarWarsShipsApp {
 
         Thread.sleep(5000);
 
-        final Config producerConfig = system.settings().config().getConfig("akka.kafka.producer");
-        final ProducerSettings<String, String> producerSettings =
+        final var producerConfig = system.settings().config().getConfig("akka.kafka.producer");
+        final var producerSettings =
                 ProducerSettings.create(producerConfig, new StringSerializer(), new StringSerializer())
                         .withBootstrapServers("localhost:9092");
 
-        CompletionStage<Done> done =
-                Source.range(1, 100)
-                        .map(number -> number.toString())
-                        .map(value -> new ProducerRecord<String, String>("starWarsShips", value))
+
+        var publisherResult =
+                Source.single(new ProducerRecord<String, String>("starWarsShips", "Hello Kafka"))
                         .runWith(Producer.plainSink(producerSettings), system);
 
-        done.toCompletableFuture().get();
+        publisherResult.toCompletableFuture().get();
 
 
     }

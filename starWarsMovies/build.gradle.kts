@@ -39,6 +39,9 @@ dependencies {
     implementation("io.vavr:vavr-match:0.10.4")
     implementation("org.projectlombok:lombok:1.18.20")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.11.4")
+    implementation("com.typesafe.akka:akka-stream-kafka_2.13:2.1.1")
+    implementation("com.typesafe.akka:akka-stream_2.13:2.6.15")
+
     testImplementation("io.vertx:vertx-junit5")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }

@@ -54,10 +54,11 @@ public class StarWarsMoviesApp extends AbstractVerticle {
                 });
     }
 
-    private JsonObject createJsonResponse(Tuple2<String, String> tuple) {
+    private JsonObject createJsonResponse(Tuple2<Tuple2<String, String>, String> tuple) {
         JsonObject entries = new JsonObject();
-        entries.put("characters", tuple._2);
-        entries.put("planets", tuple._1);
+        entries.put("characters", tuple._1._2);
+        entries.put("planets", tuple._1._1);
+        entries.put("ships", tuple._2);
         return entries;
     }
 }

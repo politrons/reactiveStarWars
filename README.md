@@ -34,16 +34,16 @@ To package your application:
 ./gradlew clean assemble
 ```
 
-To run kafka
 
+### Running
+
+* Before run the platform is mandatory have Kafka image up and running.
+Having docker-compose installed run in the root folder of project the command:
 ````
 docker-compose up -d
 ````
 
-### Running
-
-To run the four microservice you can use the main class of the ```TestFramework``` module 
+* To run the four microservice you can use the main class of the ```TestFramework``` module 
 [here](TestFramework/src/main/java/com/politrons/main/startWarsPlatformMain.java)
 
-### Stack
 

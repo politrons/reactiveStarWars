@@ -1,10 +1,10 @@
 # ![My image](img/starwars_logo.png)
 
 A Star wars reactive microservice platform, formed by four services:
-* **StarWarsMovie:** Rest API microservice. The entry point of the platform which orchestrate and gather the information for the client.
-* **StarWarsActors:** WebSocket microservice. It contains the information of characters per episode.
-* **StarWarsPlanets:** gRPC microservice. It contains the information of planets per episode.
-* **StarWarsShips:** Kafka microservice. It contains the information of ships per episode.
+* **StarWarsMovie:** ````Rest API```` microservice. The entry point of the platform which orchestrate and gather the information for the client.
+* **StarWarsActors:** ````WebSocket```` microservice. It contains the information of characters per episode.
+* **StarWarsPlanets:** ````gRPC```` microservice. It contains the information of planets per episode.
+* **StarWarsShips:** ````Kafka```` microservice. It contains the information of ships per episode.
  
     ![My image](img/starWars.png)
 

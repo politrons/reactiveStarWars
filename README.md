@@ -1,4 +1,4 @@
-# reactiveStarWars
+# ![My image](img/starwars_logo.png)
 
 A Star wars reactive microservice platform, formed by four services:
 * **StarWarsMovie:** Rest API microservice. The entry point of the platform which orchestrate and gather the information for the client.
@@ -47,3 +47,6 @@ docker-compose up -d
 [here](TestFramework/src/main/java/com/politrons/main/startWarsPlatformMain.java)
 
 
+### Stack
+
+![My image](img/akka.png) ![My image](img/reactivex.png)![My image](img/vavr.png)

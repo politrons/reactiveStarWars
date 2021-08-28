@@ -8,9 +8,9 @@ import io.vavr.concurrent.Future;
 import io.vertx.core.Vertx;
 
 /**
- * Service that use two connectors, to make two calls in parallel using Vavr Future.
- * Then using [zip] operator we merge both futures together, and as result we obtain
- * a Tuple with both future's outputs.
+ * Service that use three connectors, to make three calls in parallel using Vavr Future.
+ * Then using [zip] operator we merge futures together, and as result we obtain
+ * a Tuple with future's outputs.
  */
 public class StarWarsService {
 
@@ -33,9 +33,6 @@ public class StarWarsService {
         var shipsFuture = shipsConnector.getShips(episode)
                 .map(String::toUpperCase)
                 .onFailure(t -> System.out.println("Error obtaining ships from service. Caused by " + t.getMessage()));
-
-
-
         return futurePlanets.zip(charactersFuture).zip(shipsFuture);
     }
 }

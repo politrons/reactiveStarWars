@@ -5,7 +5,7 @@ import io.vavr.concurrent.Future;
 import java.util.Map;
 
 
-public class charactersService {
+public class CharactersService {
 
     Map<String, String> actors = Map.of(
             "episode1", "Anakin, Owi-wan, Qui-Gon-Jin",

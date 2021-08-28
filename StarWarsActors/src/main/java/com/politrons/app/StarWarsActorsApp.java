@@ -1,6 +1,6 @@
 package com.politrons.app;
 
-import com.politrons.service.charactersService;
+import com.politrons.service.CharactersService;
 import io.vavr.concurrent.Future;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
@@ -18,7 +18,7 @@ public class StarWarsActorsApp extends AbstractVerticle {
     @Override
     public void start(Promise<Void> startPromise) {
         println("Running StarWarsActors server....");
-        var service = new charactersService();
+        var service = new CharactersService();
         HttpServer server = vertx.createHttpServer();
         server.webSocketHandler(ctx ->
                         ctx.textMessageHandler((episode) -> {

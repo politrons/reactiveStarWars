@@ -45,7 +45,7 @@ public class ShipsConnector {
                         .withBootstrapServers("localhost:9092");
 
         var publisherResult =
-                Source.single(new ProducerRecord<String, String>("starWarsShips", episode))
+                Source.single(new ProducerRecord<String, String>("starWarsShipsRequest", episode))
                         .runWith(Producer.plainSink(producerSettings), system);
 
         Match(Try.of(() -> publisherResult.toCompletableFuture().get())).of(
